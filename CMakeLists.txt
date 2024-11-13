@@ -41,7 +41,6 @@ function(add_ac_java_module name)
     endif()
 endfunction()
 
-
 #################
 # options
 
@@ -80,12 +79,12 @@ if(PROJECT_IS_TOP_LEVEL)
         endif()
     endif()
 
-#~     if(AC_LOCAL_JAVA_BUILD_TESTS)
-#~         enable_testing()
-#~         add_subdirectory(test)
-#~     endif
+    if(AC_LOCAL_JAVA_BUILD_TESTS)
+        enable_testing()
+        add_subdirectory(test)
+    endif()
 
-#~     if(AC_LOCAL_JAVA_BUILD_EXAMPLES)
-#~         add_subdirectory(example)
-#~     endif()
+    if(AC_LOCAL_JAVA_BUILD_EXAMPLES)
+        add_subdirectory(example)
+    endif()
 endif()

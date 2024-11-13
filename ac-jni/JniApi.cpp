@@ -4,9 +4,7 @@
 #include "JniApi.hpp"
 #include "JniDict.hpp"
 
-//#include <ac/local/LocalDummy.hpp>
-//#include <ac/local/LocalLlama.hpp>
-//#include <ac/local/LocalWhisper.hpp>
+#include "aclp-dummy-plib.hpp"
 
 #include <ac/local/ModelDesc.hpp>
 #include <ac/local/ModelFactory.hpp>
@@ -219,9 +217,7 @@ void JniApi_register(jni::JavaVM&, jni::JNIEnv& env) {
 
     factorySingleton = std::make_unique<local::ModelFactory>();
 
-    //local::addDummyInference(*factorySingleton);
-    //local::addLlamaInference(*factorySingleton);
-    //local::addWhisperInference(*factorySingleton);
+    add_dummy_to_ac_local(*factorySingleton);
 }
 
 } // namespace ac::java

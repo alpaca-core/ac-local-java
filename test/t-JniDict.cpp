@@ -3,7 +3,7 @@
 //
 #include "jni.hpp"
 #include "JniDict.hpp"
-#include <astl/throw_ex.hpp>
+#include <astl/throw_stdex.hpp>
 
 extern "C" {
 
