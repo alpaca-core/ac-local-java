@@ -14,7 +14,7 @@ project(ac-local-java
 include(./get-ac-build.cmake)
 
 if(sanitizerFlags)
-    # TODO: #134
+    # TODO: #2
     message(WARNING "${CMAKE_PROJECT_NAME} is configured with '${sanitizerFlags}'. Java will likely fail to load the JNI library")
 endif()
 

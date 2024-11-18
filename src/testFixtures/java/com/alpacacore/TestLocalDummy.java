@@ -28,7 +28,7 @@ public class TestLocalDummy {
             fail("Should have thrown an exception");
         }
         catch (Error e) {
-            assertEquals("Unknown inference type: nope", e.getMessage());
+            assertEquals("No loader found for schema type: nope", e.getMessage());
         }
 
         desc.inferenceType = "dummy";

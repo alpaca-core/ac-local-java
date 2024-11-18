@@ -4,17 +4,20 @@
 #include "JniApi.hpp"
 #include "JniDict.hpp"
 
-#include "aclp-dummy-plib.hpp"
-
 #include <ac/local/ModelDesc.hpp>
-#include <ac/local/ModelFactory.hpp>
-
+#include <ac/local/ModelPtr.hpp>
 #include <ac/local/Model.hpp>
 #include <ac/local/Instance.hpp>
+
+#include <ac/local/ModelLoaderRegistry.hpp>
+#include <ac/local/PluginManager.hpp>
+#include <ac/local/Lib.hpp>
 
 #include <astl/move.hpp>
 #include <itlib/make_ptr.hpp>
 #include <iostream>
+
+#include "aclp-dummy-plib.hpp"
 
 namespace ac::java {
 
@@ -164,8 +167,6 @@ struct Model {
 
 std::optional<NativeClass<Model, Model::Payload>> Model::nativeClass;
 
-std::unique_ptr<local::ModelFactory> factorySingleton;
-
 struct AlpacaCore {
     static constexpr auto Name() { return "com/alpacacore/AlpacaCore"; }
 
@@ -176,7 +177,7 @@ struct AlpacaCore {
         jni::Object<>& params,
         jni::Object<ProgressCallback>& pcb
     ) {
-        auto model = factorySingleton->createModel(
+        auto model = ac::local::Lib::modelLoaderRegistry().createModel(
             ModelDesc::get(env, desc),
             Object_toDict(env, jni::NewLocal(env, params)),
             ProgressCallback::makeProgressCb(env, pcb)
@@ -215,9 +216,7 @@ void JniApi_register(jni::JavaVM&, jni::JNIEnv& env) {
         , jniMakeNativeMethod(AlpacaCore, releaseInstance)
     );
 
-    factorySingleton = std::make_unique<local::ModelFactory>();
-
-    add_dummy_to_ac_local(*factorySingleton);
+    add_dummy_to_ac_local_registry(ac::local::Lib::modelLoaderRegistry());
 }
 
 } // namespace ac::java
