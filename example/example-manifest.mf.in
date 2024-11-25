@@ -1,0 +1,2 @@
+aclp_out_dir: @ACLP_OUT_DIR@
+ac_test_data_llama_dir: @ac-test-data-llama_SOURCE_DIR@

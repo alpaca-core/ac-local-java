@@ -7,7 +7,7 @@
       "exe": "C:\\tools\\jdk-17.0.12+7\\bin\\java.exe",
       "args": [
         "-cp",
-        "../wrapper/java/test/test-ac-java-Dict.jar;${workspaceRoot}/wrapper/java/test/lib/junit-4.10.jar;../wrapper/java/test/test-ac-java-Dict.jar",
+        "../test/test-ac-java-Dict.jar;${workspaceRoot}/test/lib/junit-4.10.jar;../test/test-ac-java-Dict.jar",
         "org.junit.runner.JUnitCore",
         "com.alpacacore.TestDict"
       ],
@@ -21,7 +21,7 @@
       "exe": "C:\\tools\\jdk-17.0.12+7\\bin\\java.exe",
       "args": [
         "-cp",
-        "../wrapper/java/src/alpaca-core.jar;${workspaceRoot}/wrapper/java/test/lib/junit-4.10.jar;../wrapper/java/test/test-ac-java-LocalDummy.jar",
+        "../src/alpaca-core.jar;${workspaceRoot}/test/lib/junit-4.10.jar;../test/test-ac-java-LocalDummy.jar",
         "org.junit.runner.JUnitCore",
         "com.alpacacore.TestLocalDummy"
       ],
@@ -35,7 +35,7 @@
       "exe": "C:\\tools\\jdk-17.0.12+7\\bin\\java.exe",
       "args": [
         "-cp",
-        "../wrapper/java/src/alpaca-core.jar;../wrapper/java/example/ac-example-local-dummy.jar",
+        "../src/alpaca-core.jar;../example/ac-example-local-dummy.jar",
         "com.alpacacore.example.LocalDummyExample"
       ],
       "currentDir": "out/build/${cmake.name}/bin",

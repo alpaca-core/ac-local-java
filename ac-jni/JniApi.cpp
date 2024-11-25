@@ -170,6 +170,22 @@ std::optional<NativeClass<Model, Model::Payload>> Model::nativeClass;
 struct AlpacaCore {
     static constexpr auto Name() { return "com/alpacacore/AlpacaCore"; }
 
+    static void loadPlugin(jni::JNIEnv& env, jni::Class<AlpacaCore>&, jni::String& path) {
+        ac::local::Lib::loadPlugin(jni::Make<std::string>(env, path));
+    }
+
+    static void addPluginDir(jni::JNIEnv& env, jni::Class<AlpacaCore>&, jni::String& dir) {
+        ac::local::Lib::addPluginDir(jni::Make<std::string>(env, dir));
+    }
+
+    static void addPluginDirsFromEnv(jni::JNIEnv& env, jni::Class<AlpacaCore>&, jni::String& envVar) {
+        ac::local::Lib::addPluginDirsFromEnvVar(jni::Make<std::string>(env, envVar));
+    }
+
+    static void loadAllPlugins(jni::JNIEnv&, jni::Class<AlpacaCore>&) {
+        ac::local::Lib::loadAllPlugins();
+    }
+
     static jni::Local<jni::Object<Model>> createModel(
         jni::JNIEnv& env,
         jni::Class<AlpacaCore>&,
@@ -211,6 +227,10 @@ void JniApi_register(jni::JavaVM&, jni::JNIEnv& env) {
 
     auto acc = jni::Class<AlpacaCore>::Find(env);
     jni::RegisterNatives(env, *acc
+        , jniMakeNativeMethod(AlpacaCore, loadPlugin)
+        , jniMakeNativeMethod(AlpacaCore, addPluginDir)
+        , jniMakeNativeMethod(AlpacaCore, addPluginDirsFromEnv)
+        , jniMakeNativeMethod(AlpacaCore, loadAllPlugins)
         , jniMakeNativeMethod(AlpacaCore, createModel)
         , jniMakeNativeMethod(AlpacaCore, releaseModel)
         , jniMakeNativeMethod(AlpacaCore, releaseInstance)

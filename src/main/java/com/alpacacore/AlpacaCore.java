@@ -14,6 +14,13 @@ public class AlpacaCore {
         System.loadLibrary("ac-jni");
     }
 
+    public static native void loadPlugin(String path);
+
+    public static native void addPluginDir(String dir);
+    public static native void addPluginDirsFromEnv(String envVar);
+
+    public static native void loadAllPlugins();
+
     /// Create a model from a model description.
     /// The progress callback is optional.
     public static native Model createModel(ModelDesc desc, Object params, ProgressCallback cb);
