@@ -9,7 +9,7 @@ add_jar(alpaca-core-jar
         ${jdir}/AlpacaCore.java
         ${jdir}/Instance.java
         ${jdir}/Model.java
-        ${jdir}/ModelDesc.java
+        ${jdir}/ModelAssetDesc.java
         ${jdir}/ProgressCallback.java
     OUTPUT_NAME
         alpaca-core

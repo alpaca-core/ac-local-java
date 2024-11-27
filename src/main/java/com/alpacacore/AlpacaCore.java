@@ -21,9 +21,9 @@ public class AlpacaCore {
 
     public static native void loadAllPlugins();
 
-    /// Create a model from a model description.
+    /// Load a model from an asset description.
     /// The progress callback is optional.
-    public static native Model createModel(ModelDesc desc, Object params, ProgressCallback cb);
+    public static native Model loadModel(ModelAssetDesc desc, Object params, ProgressCallback cb);
 
     /// Release a model.
     /// Models are managed manually not releasing a model is considered a leak.

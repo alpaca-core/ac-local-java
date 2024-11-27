@@ -3,22 +3,21 @@
 //
 package com.alpacacore;
 
-/// An descriptor for models.
+/// An descriptor for model assets.
 /// @ingroup java-local
-public class ModelDesc {
+public class ModelAssetDesc {
     /// Default constructor for an empty description.
-    public ModelDesc() {}
+    public ModelAssetDesc() {}
 
     /// Constructor from components.
-    public ModelDesc(String inferenceType, AssetInfo[] assets, String name) {
-        this.inferenceType = inferenceType;
+    public ModelAssetDesc(String type, AssetInfo[] assets, String name) {
+        this.type = type;
         this.assets = assets;
         this.name = name;
     }
 
-    /// Inference type.
-    /// Used as a router to the correct underlying inference library.
-    public String inferenceType;
+    /// Asset (weights) type.
+    public String type;
 
     /// Information for an individual asset.
     public static final class AssetInfo {

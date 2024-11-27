@@ -4,7 +4,7 @@
 package com.alpacacore.example;
 
 import com.alpacacore.AlpacaCore;
-import com.alpacacore.ModelDesc;
+import com.alpacacore.ModelAssetDesc;
 import com.alpacacore.Model;
 import com.alpacacore.Instance;
 
@@ -26,13 +26,14 @@ public class LocalDummyExample {
         AlpacaCore.addPluginDir(pluginDir);
         AlpacaCore.loadAllPlugins();
 
-        ModelDesc desc = new ModelDesc();
-        desc.inferenceType = "llama";
-        desc.assets = new ModelDesc.AssetInfo[] {
-            new ModelDesc.AssetInfo(llamaDataDir + "/gpt2-117m-q6_k.gguf", "")
+        ModelAssetDesc desc = new ModelAssetDesc();
+        desc.type = "llama.cpp gguf";
+        desc.assets = new ModelAssetDesc.AssetInfo[] {
+            new ModelAssetDesc.AssetInfo(llamaDataDir + "/gpt2-117m-q6_k.gguf", "")
         };
+        desc.name = "gpt2 117m";
 
-        Model model = AlpacaCore.createModel(desc, null, null);
+        Model model = AlpacaCore.loadModel(desc, null, null);
 
         Instance instance = model.createInstance("general", null);
 

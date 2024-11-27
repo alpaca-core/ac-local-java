@@ -4,12 +4,11 @@
 #include "JniApi.hpp"
 #include "JniDict.hpp"
 
-#include <ac/local/ModelDesc.hpp>
+#include <ac/local/ModelAssetDesc.hpp>
 #include <ac/local/ModelPtr.hpp>
 #include <ac/local/Model.hpp>
 #include <ac/local/Instance.hpp>
 
-#include <ac/local/ModelLoaderRegistry.hpp>
 #include <ac/local/PluginManager.hpp>
 #include <ac/local/Lib.hpp>
 
@@ -21,19 +20,19 @@
 
 namespace ac::java {
 
-struct ModelDesc {
-    static constexpr auto Name() { return "com/alpacacore/ModelDesc"; }
+struct ModelAssetDesc {
+    static constexpr auto Name() { return "com/alpacacore/ModelAssetDesc"; }
 
     struct AssetInfo {
-        static constexpr auto Name() { return "com/alpacacore/ModelDesc$AssetInfo"; }
+        static constexpr auto Name() { return "com/alpacacore/ModelAssetDesc$AssetInfo"; }
     };
 
-    static local::ModelDesc get(JNIEnv& env, jni::Object<ModelDesc>& obj) {
-        local::ModelDesc ret;
+    static local::ModelAssetDesc get(JNIEnv& env, jni::Object<ModelAssetDesc>& obj) {
+        local::ModelAssetDesc ret;
 
-        auto cls = jni::Class<ModelDesc>::Find(env);
-        auto inferenceTypeField = cls.GetField<jni::String>(env, "inferenceType");
-        ret.inferenceType = jni::Make<std::string>(env, obj.Get(env, inferenceTypeField));
+        auto cls = jni::Class<ModelAssetDesc>::Find(env);
+        auto typeField = cls.GetField<jni::String>(env, "type");
+        ret.type = jni::Make<std::string>(env, obj.Get(env, typeField));
 
         auto assetInfoClass = jni::Class<AssetInfo>::Find(env);
         auto assetInfoPathField = assetInfoClass.GetField<jni::String>(env, "path");
@@ -186,15 +185,15 @@ struct AlpacaCore {
         ac::local::Lib::loadAllPlugins();
     }
 
-    static jni::Local<jni::Object<Model>> createModel(
+    static jni::Local<jni::Object<Model>> loadModel(
         jni::JNIEnv& env,
         jni::Class<AlpacaCore>&,
-        jni::Object<ModelDesc>& desc,
+        jni::Object<ModelAssetDesc>& desc,
         jni::Object<>& params,
         jni::Object<ProgressCallback>& pcb
     ) {
-        auto model = ac::local::Lib::modelLoaderRegistry().createModel(
-            ModelDesc::get(env, desc),
+        auto model = ac::local::Lib::loadModel(
+            ModelAssetDesc::get(env, desc),
             Object_toDict(env, jni::NewLocal(env, params)),
             ProgressCallback::makeProgressCb(env, pcb)
         );
@@ -231,7 +230,7 @@ void JniApi_register(jni::JavaVM&, jni::JNIEnv& env) {
         , jniMakeNativeMethod(AlpacaCore, addPluginDir)
         , jniMakeNativeMethod(AlpacaCore, addPluginDirsFromEnv)
         , jniMakeNativeMethod(AlpacaCore, loadAllPlugins)
-        , jniMakeNativeMethod(AlpacaCore, createModel)
+        , jniMakeNativeMethod(AlpacaCore, loadModel)
         , jniMakeNativeMethod(AlpacaCore, releaseModel)
         , jniMakeNativeMethod(AlpacaCore, releaseInstance)
     );

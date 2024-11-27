@@ -22,19 +22,19 @@ public class TestLocalDummy {
 
     @Test
     public void localDummy() {
-        ModelDesc desc = new ModelDesc("nope", null, null);
+        ModelAssetDesc desc = new ModelAssetDesc("nope", null, "nope model");
         try {
-            Model model = AlpacaCore.createModel(desc, null, null);
+            Model model = AlpacaCore.loadModel(desc, null, null);
             fail("Should have thrown an exception");
         }
         catch (Error e) {
-            assertEquals("No loader found for schema type: nope", e.getMessage());
+            assertEquals("No loader found for: nope model", e.getMessage());
         }
 
-        desc.inferenceType = "dummy";
+        desc.type = "dummy";
         desc.name = "synthetic dummy";
         ProgressBox pdata = new ProgressBox();
-        Model model = AlpacaCore.createModel(desc, null, new ProgressCallback() {
+        Model model = AlpacaCore.loadModel(desc, null, new ProgressCallback() {
             @Override
             public boolean onProgress(String tag, float progress) {
                 pdata.tag = tag;
