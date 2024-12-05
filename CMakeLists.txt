@@ -51,7 +51,7 @@ mark_as_advanced(AC_LOCAL_JAVA_BUILD_TESTS AC_LOCAL_JAVA_BUILD_EXAMPLES)
 #######################################
 # packages
 
-add_ac_local(0.1.3)
+add_ac_local(0.1.4)
 find_package(JNI REQUIRED)
 CPMAddPackage(gh:mapbox/jni.hpp@4.0.0)
 if(jni.hpp_ADDED)
