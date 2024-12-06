@@ -14,11 +14,17 @@ public class AlpacaCore {
         System.loadLibrary("ac-jni");
     }
 
+    /// Load a plugin from a specific file ignoring search paths.
     public static native void loadPlugin(String path);
 
+    /// Add a directory to the plugin search path.
     public static native void addPluginDir(String dir);
+
+    /// Add directories to the plugin search path from an environment variable.
+    /// The separator is platform dependent: ':' on Unix, ';' on Windows.
     public static native void addPluginDirsFromEnv(String envVar);
 
+    /// Load all plugins from the search path.
     public static native void loadAllPlugins();
 
     /// Load a model from an asset description.
